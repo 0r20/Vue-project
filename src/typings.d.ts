@@ -4,6 +4,7 @@ type ILayout = 'main' | 'auth'
 
 declare module 'vue-router' {
   interface RouteMeta {
-    layout: ILayout
+    layout: ILayout,
+    auth: boolean
   }
 }

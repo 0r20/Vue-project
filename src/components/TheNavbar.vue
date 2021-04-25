@@ -6,13 +6,13 @@
 				<router-link to="/">Заявки</router-link>
 			</li>
 			<li>
-				<router-link to="/">Помощь</router-link>
+				<router-link to="/help">Помощь</router-link>
 			</li>
 			<li>
 				<router-link to="/">Сообщения</router-link>
 			</li>
 			<li>
-				<router-link to="/">Выход</router-link>
+				<a @click.prevent="onLogout">Выход</a>
 			</li>		
 		</ul>
 	</nav>
@@ -20,8 +20,22 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 export default defineComponent({
-	
+	setup() {
+		const store = useStore()
+		const router = useRouter()
+
+		const onLogout = () => {
+			store.commit('auth/logout')
+			router.push('/auth')
+		}
+		return { 
+			onLogout
+		}
+	}	
 })
 </script>
 <style lang="">
