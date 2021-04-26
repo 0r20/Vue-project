@@ -1,9 +1,7 @@
 <template>
 	<div class="container">
 		<app-message></app-message>
-		<div class="card">
-			<slot />
-		</div>
+		<slot />
 	</div>
 </template>
 

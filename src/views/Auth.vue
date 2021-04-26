@@ -1,5 +1,5 @@
 <template>
-	<form @submit.prevent="onSubmit" >
+	<form @submit.prevent="onSubmit" class="card">
 		<h1>Войти в систему</h1>
 		<div :class="['form-control', { invalid: eError }]">
 			<label for="email">Email</label>

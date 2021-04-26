@@ -1,13 +1,14 @@
 <template lang="">
-	<div>
-		Help
-	</div>
+	<page-layout title="Help">
+
+	</page-layout>
 </template>
+
 <script>
-export default {
-	
-}
+import pageLayout from '@/components/ui/pageLayout.vue';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  components: { pageLayout },
+});
 </script>
-<style lang="">
-	
-</style>

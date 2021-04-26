@@ -9,7 +9,7 @@
 				<router-link to="/help">Помощь</router-link>
 			</li>
 			<li>
-				<router-link to="/">Сообщения</router-link>
+				<a href="#">Сообщения</a>
 			</li>
 			<li>
 				<a @click.prevent="onLogout">Выход</a>

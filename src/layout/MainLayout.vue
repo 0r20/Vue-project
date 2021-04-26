@@ -1,9 +1,7 @@
 <template>
 	<the-navbar></the-navbar>
 	<div class="container with-nav">
-		<div class="card">
-			<slot/>
-		</div>
+		<slot/>
 	</div>
 </template>
 
