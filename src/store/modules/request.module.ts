@@ -3,6 +3,7 @@ import axiosRequest from '@/axios/request'
 import store from '../index'
 
 export interface IRequest {
+  id: string;
   fio: string;
   phone: string;
   amount: number;
@@ -47,6 +48,19 @@ export default {
         dispatch('setMessage', {
           type: "danger",
           value: "Ошибка добавления заявки"
+        }, { root: true })
+      }
+    },
+    async load({ commit, dispatch }: { commit: Commit, dispatch: Dispatch }) {
+      try {
+        const token = store.getters['auth/token']
+        const { data } = await axiosRequest.get(`/requests.json?auth=${token}`)
+        const transformData = Object.keys(data).map((key: string) => ({ ...data[key], id: key }))
+        commit('setRequests', transformData)
+      } catch (e) {
+        dispatch('setMessage', {
+          type: "danger",
+          value: "Ошибка загрузки заявок"
         }, { root: true })
       }
     }
