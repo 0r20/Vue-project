@@ -3,7 +3,7 @@
     <template #header>
       <button class="btn primary" @click="modalToggle" >Создать</button>
     </template>
-    <request-table :requests="[]" ></request-table>
+    <request-table :requests="requests" ></request-table>
   </page-layout>
 
   <teleport to="body">
@@ -14,8 +14,9 @@
 </template>
 
 <script lang="ts">
+import { computed, defineComponent, ref } from 'vue';
+import { useStore } from 'vuex'
 import pageLayout from '@/components/ui/pageLayout.vue';
-import { defineComponent, ref } from 'vue';
 import requestTable from '@/components/request/requestTable.vue'
 import modalComponent from '@/components/ui/modal.vue'
 import requestForm from '@/components/request/requestForm.vue';
@@ -23,7 +24,10 @@ import requestForm from '@/components/request/requestForm.vue';
 export default defineComponent({
   components: { pageLayout, requestTable, modalComponent, requestForm},
   setup() {
+    const store = useStore()
     const modal = ref(false)
+
+    const requests = computed(() => store.getters['request/requests'])
 
     const modalToggle = () => {
       modal.value = !modal.value
@@ -31,7 +35,8 @@ export default defineComponent({
 
     return {
       modal,
-      modalToggle
+      modalToggle,
+      requests
     }
   }
 });

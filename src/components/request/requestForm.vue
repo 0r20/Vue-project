@@ -48,13 +48,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useRequestForm, IRequest } from '@/use/requestForm'
+import { useRequestForm } from '@/use/requestForm'
+import { IRequest } from '@/store/modules/request.module'
+import { useStore } from 'vuex'
 
 export default defineComponent({
 	emits: ['created'],
 	setup(_, { emit }) {
 
+		const store = useStore()
+
 		const submit = (values: IRequest) => {
+			store.dispatch('request/create', values)
 			emit('created', values)
 		}
 

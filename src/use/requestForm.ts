@@ -1,15 +1,10 @@
 import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
-
-export interface IRequest {
-  fio?: string;
-  phone?: string;
-  amount?: number;
-  status: 'done' | 'cancelled' | 'active' | 'pending';
-}
+import { IRequest } from '@/store/modules/request.module'
 
 export function useRequestForm(fn: (values: IRequest) => void) {
   const { handleSubmit, isSubmitting } = useForm<IRequest>({
+    // @ts-ignore
     initialValues: {
       status: 'active',
     }
