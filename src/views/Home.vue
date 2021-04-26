@@ -8,7 +8,7 @@
 
   <teleport to="body">
     <modal-component v-if="modal" title="Создать заявку" @close="modalToggle" >
-      <request-form></request-form>
+      <request-form @created="modal = false" ></request-form>
     </modal-component>
   </teleport>
 </template>
