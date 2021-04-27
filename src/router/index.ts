@@ -4,6 +4,15 @@ import store from '@/store/index'
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/auth',
+    name: 'Auth',
+    component: () => import('../views/Auth.vue'),
+    meta: {
+      layout: 'auth',
+      auth: false
+    }
+  },
+  {
     path: '/',
     name: 'Home',
     component: Home,
@@ -22,12 +31,12 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: '/auth',
-    name: 'Auth',
-    component: () => import('../views/Auth.vue'),
+    path: '/request/:id',
+    name: 'Request',
+    component: () => import('../views/Request.vue'),
     meta: {
-      layout: 'auth',
-      auth: false
+      layout: 'main',
+      auth: true
     }
   },
 ]

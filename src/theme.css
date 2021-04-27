@@ -431,6 +431,7 @@ h3 {
   border: 1px solid #eee;
   border-radius: 15px;
   padding: 0 0.5rem;
+  display: inline-block;
 }
 
 .badge.primary {

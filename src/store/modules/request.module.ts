@@ -11,11 +11,13 @@ export interface IRequest {
 }
 
 interface State {
-  requests: IRequest[]
+  requests: IRequest[],
+  request: IRequest | null
 }
 
 const state: State = {
-  requests: []
+  requests: [],
+  request: null
 }
 
 export default {
@@ -24,9 +26,15 @@ export default {
   getters: {
     requests(state: State) {
       return state.requests
+    },
+    request(state: State) {
+      return state.request
     }
   },
   mutations: {
+    setRequest(state: State, request: IRequest) {
+      state.request = request
+    },
     setRequests(state: State, requests: IRequest[]) {
       state.requests = requests
     },
@@ -61,6 +69,22 @@ export default {
         dispatch('setMessage', {
           type: "danger",
           value: "Ошибка загрузки заявок"
+        }, { root: true })
+      }
+    },
+    async loadById({ commit, dispatch }: { commit: Commit, dispatch: Dispatch }, id: string) {
+      try {
+        const token = store.getters['auth/token']
+        const { data } = await axiosRequest.get(`/requests/${id}.json?auth=${token}`)
+        if (!data) {
+          throw new Error('Нет такого ID')
+        }
+        const transformData = { ...data, id }
+        commit('setRequest', transformData)
+      } catch (e) {
+        dispatch('setMessage', {
+          type: "danger",
+          value: "Ошибка загрузки заявки"
         }, { root: true })
       }
     }

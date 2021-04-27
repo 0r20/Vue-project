@@ -16,11 +16,13 @@
     			<td>{{ idx + 1 }}</td>
     			<td>{{ r.fio }}</td>
     			<td>{{ r.phone }}</td>
-    			<td>{{ r.amount }}</td>
-    			<td>{{ r.status }}</td>
+    			<td>{{ currency(r.amount) }}</td>
+    			<td>
+					<status-badge :type="r.status"></status-badge>
+				</td>
     			<td> 
 					<router-link custom v-slot="{ navigate }" :to="{ name: 'Request', params: { id: r.id } }" >
-						<button class="btn primary" @click="navigate">Открыть</button>
+						<button class="btn" @click="navigate">Открыть</button>
 					</router-link>
 				</td>
 			</tr>
@@ -31,11 +33,18 @@
 <script lang="ts">
 import {defineComponent, PropType} from 'vue'
 import { IRequest } from '@/store/modules/request.module'
+import { currency } from '@/utils/currency'
+import statusBadge from '@/components/ui/status.vue'
+
 export default defineComponent({
+	components: { statusBadge },
 	props: { 
 		requests: { 
 			type: Array as PropType<IRequest[]>,
-		}
+		},
+	},
+	setup() {
+		return { currency }
 	}
 })
 </script>

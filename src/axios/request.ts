@@ -6,7 +6,7 @@ const axiosRequest = axios.create({
   baseURL: process.env.VUE_APP_FB_URL
 })
 
-axios.interceptors.response.use(
+axiosRequest.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response.status === 401) {
