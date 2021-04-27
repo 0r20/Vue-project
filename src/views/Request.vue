@@ -5,13 +5,15 @@
 		<p><strong>Телфон: </strong>{{ request.phone }}</p>
 		<p><strong>Сумма: </strong>{{ currency(request.amount) }}</p>
 		<p><strong>Статус: </strong> <status-badge :type="request.status"></status-badge></p>
+
+		<button class="btn danger" @click="remove" >Удалить</button>
 	</page-layout>
 	<h3 v-else class="text-center text-white">Заявки с Id = {{ id }} не существует</h3>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed } from 'vue'
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex'
 import pageLayout from '@/components/ui/pageLayout.vue';
 import loader from '@/components/ui/loader.vue'
@@ -25,8 +27,9 @@ export default defineComponent({
 		statusBadge
 	},
 	setup() {
-		const store = useStore();
+		const store = useStore()
 		const route = useRoute()
+		const router = useRouter()
 		const loading = ref(false)
 	
     	onMounted(async () => {
@@ -35,14 +38,21 @@ export default defineComponent({
     	  loading.value = false
     	})	
 
+		const remove = async () => {
+			try { 
+				await store.dispatch('request/remove', route.params.id)
+				router.push('/')
+			} catch (e){}
+		}
+
 		const request = computed(() => store.getters['request/request'])
-		console.log(request.value)
 
 		return { 
 			request,
 			loading,
 			id: route.params.id,
-			currency
+			currency,
+			remove
 		}
 	}
 })

@@ -87,6 +87,22 @@ export default {
           value: "Ошибка загрузки заявки"
         }, { root: true })
       }
+    },
+    async remove({ dispatch }: { dispatch: Dispatch }, id: string) {
+      try {
+        const token = store.getters['auth/token']
+        await axiosRequest.delete(`/requests/${id}.json?auth=${token}`)
+        dispatch('setMessage', {
+          type: "primary",
+          value: "Заявка успешно удалена"
+        }, { root: true })
+      } catch (e) {
+        dispatch('setMessage', {
+          type: "danger",
+          value: "Ошибка при удалении заявки"
+        }, { root: true })
+        throw new Error()
+      }
     }
   }
 }
