@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
 	props: { 
 		type: {
@@ -33,6 +33,11 @@ export default defineComponent({
 
 		const className = ref(classesMap[props.type as keyof typeof classesMap])
 		const text = ref(textMap[props.type as keyof typeof textMap])
+
+		watch(props, (value) => {
+			className.value = classesMap[value.type as keyof typeof classesMap]
+			text.value = textMap[value.type as keyof typeof textMap]
+		})
 
 		return { 
 			className,

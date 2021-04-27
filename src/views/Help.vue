@@ -1,14 +1,15 @@
 <template lang="">
-	<page-layout title="Help">
-
+	<page-layout title="Помощь">
+		<question-list></question-list>
 	</page-layout>
 </template>
 
 <script>
 import pageLayout from '@/components/ui/pageLayout.vue';
 import { defineComponent } from 'vue';
+import questionList from '@/components/question/questionList'
 
 export default defineComponent({
-  components: { pageLayout },
+  components: { pageLayout, questionList },
 });
 </script>

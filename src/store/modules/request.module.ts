@@ -7,7 +7,7 @@ export interface IRequest {
   fio: string;
   phone: string;
   amount: number;
-  status: 'done' | 'cancelled' | 'active' | 'pending';
+  status: string;
 }
 
 interface State {
@@ -40,6 +40,9 @@ export default {
     },
     addRequest(state: State, request: IRequest) {
       state.requests.push(request)
+    },
+    changeStatus(state: State, status: string) {
+      state.request = { ...state.request, status } as IRequest
     }
   },
   actions: {
@@ -102,6 +105,24 @@ export default {
           value: "Ошибка при удалении заявки"
         }, { root: true })
         throw new Error()
+      }
+    },
+    async update({ dispatch }: { dispatch: Dispatch }, { id, status }: { id: string, status: string }) {
+      try {
+        const token: string = store.getters['auth/token']
+        const { data } = await axiosRequest.patch(`/requests/${id}.json?auth=${token}`, {
+          status
+        })
+        dispatch('setMessage', {
+          type: "primary",
+          value: 'Статус заявки успешно изменен'
+        }, { root: true })
+        return { ...data, id }
+      } catch (e) {
+        dispatch('setMessage', {
+          type: "danger",
+          value: "Ошибка при изменении статуса"
+        }, { root: true })
       }
     }
   }

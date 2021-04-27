@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, onMounted, watch } from 'vue';
+import { computed, defineComponent, ref, onMounted } from 'vue';
 import { useStore } from 'vuex'
 import pageLayout from '@/components/ui/pageLayout.vue';
 import requestTable from '@/components/request/requestTable.vue'
@@ -48,10 +48,6 @@ export default defineComponent({
       loading.value = true
       await store.dispatch('request/load')
       loading.value = false
-    })
-
-    watch(filter, (value) => {
-      console.log(value)
     })
 
     const requests = computed(() => {
